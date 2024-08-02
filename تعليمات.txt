@@ -1,0 +1,344 @@
+إنشاء الVALAN
+في فرع دمشق
+S#configure terminal
+S#hostname S1
+S1#Vlan 10
+S1#name It
+S1#exit
+S1(configure-Vlan) #interface range fa0/1-4
+S1(configure-Vlan) #switchport mode access
+S1(configure-Vlan) #switchport access Vlan 10
+S1(configure-Vlan) #exit
+S1#WR
+تعريف الSWITCH CORE
+S(configure)#vlan10
+S(Vlan-name) #name IT
+S# exit
+S(configure)#vlan20
+S(Vlan-name) #name HR
+S# exit
+S(configure)#vlan30
+S(Vlan-name) #name Mark
+S# exit
+S(configure)#interface fa0/1
+S(configure)#switchport mode trunk
+الأمر الذي  من خلاله نستغرض الvlans
+S# show-Vlan
+الامر الذي نعرض ان ذها الport من نوغ 
+
+trunk
+S# show interface trunk
+الأمر الذي نستعرض فيه الinterface
+S# show interface brief
+تعريف الvlan في فرع حمص
+S1…
+Vlan11
+name a
+S2…
+Vlan12
+Name b
+S3…
+Vlan13
+name c
+تعريف الvlan في فرع حلب
+S1…
+Vlan14
+name d
+S2…
+Vlan15
+name e
+S3…
+Vlan16
+name f
+نعريف الvlan في فرع حماة
+S1…
+Vlan17
+name g
+S2…
+Vlan18
+name h
+S3…
+Vlan19
+Name I
+تعريف الvlan في فرع طرطوس
+S1…
+
+Vlan21
+name j
+S2…
+Vlan22
+name k
+S3…
+Vlan23
+name I
+تفعيل الراوتر on stick في فرع دمشق
+R () # hostname R1
+R1(configure)#interface fa0/0
+R1(configure)# no shutdown
+R1# exit
+R1(configure terminal) #interface g0.10
+هنا قمنا بإنشاء interface وهمي
+R1(Sub interface) #encapsulation dot 1q 10
+R1(Sub interface) #ip address 10.10.10.10 255.255.255.224
+R1# exit
+R1(configure terminal) #interface g0.20
+R1(Sub interface) #encapsulation dot 1q 20
+R1(Sub interface) #ip address 10.10.10.10 255.255.255.224
+R1# exit
+R1(configure terminal) #interface g0.30
+R1(Sub interface) #encapsulation dot 1q.30
+R1(Sub interface) #ip address 10.10.10.70 255.255.255.224
+R1(Sub interface) # exit
+R1(Sub interface) # ctrl+z
+R1# WR
+نقوم بإعطاء ال IP للحواسيب بكل قسم بشكل Static.
+Vlan10: giga0.10.10.10.10
+Vlan20: giga0.10.10.10.40
+Vlan30: giga0. 10.10.10.70
+تفعيل الrouter on stickt في فرع حمص
+R2(configure) interface0/0
+R2(configure) no shutdown
+R2# exit
+R2 (configure terminal) # interface fa0/0.11
+R2(Sub interface) # encapsulation dot1.q11
+R2(Sub interface) # Ip address 10.10.10.100.255.255.255.224
+R2(Sub interface) #exit
+R2(configure terminal) # interface fa0/0.13
+R2(Sub interface) #encapsulation dot1q13
+R2(Sub interface) #ip address 10.10.10.170 255.255.255.224
+R2(Sub interface) #exit
+R2(Sub interface) # ctrl+z
+R2#wr
+مثل فرع دمشق يجب علينا القيام بإعطاء الحواسيب IP لكل قسم من هذا الفرع.
+Vlan11: giga0 10.10.10.100
+Vlan12: giga0 10.10.10.130
+Vlan13: giga0 10.10.10.170
+فرع حلب
+R3(configure) #interface fa0/0
+R3(configure)#no shutdown
+R3(configure)# exit
+R3(configure terminal) #interface fa0/0.14
+R3(Sub interface) #encapsulation dot1 q14
+R3(Sub interface) Ip address 10.10.10.200 255.255.255.224
+R3(Sub interface) #exit
+R3(configure terminal) #interface fa0/0.15
+R3(Sub interface) #encapsulation dot1 q15
+R3(Sub interface) Ip address 10.10.10.230 255.255.255.224
+R3(Sub interface) #exit
+R3(configure terminal) #interface fa0/0.16
+R3(Sub interface) #encapsulation dot1 q16
+R3(Sub interface) # Ip address 10.10.10.10. 255.255.255.224
+R3#exit
+R3(Sub interface) # ctrl+z
+R3#WR
+نقوم بإعطاء ال IP للحواسيب:
+Vlan14: giga 0:10.10.10.200
+Vlan15: giga0:10.10.10.230
+Vlan 16: giga0:10.11.10.10
+فرع حماة
+R4(configure)#interface0/0
+R4(configure)#no shutdown
+R4(configure)# exit
+R4(configure terminal) # interface fa0/0.17
+R4(Sub interface) #encapsulation dot1 q17
+R4(Sub interface) #ip address 10.11.10.40 255.255.255.224
+R4(Sub interface) #exit
+R4(configure terminal) #interface fa0/0.18
+R4(Sub interface) #encapsulation dot1 q18
+R4(Sub interface) #ip address 10.11.10.70
+255.255.255.224
+R4(Sub interface) #exit
+R4(configure terminal) #interface fa0/0.19
+R4(Sub interface) #encapsulation dot1 q19
+R4(Sub interface) #ip address 10.11.10.100 255.255.255.224
+R4(Sub interface) # exit
+R4(Sub interface) ctrl+z
+R4# WR
+سوف نقوم بإعطاء ال Ip address للحواسيب:
+Vlan17: giga 0:10.11.10.40
+Vlan18: giga 0:10.11.10.70
+Vlan19: giga 0:10.11.10.100
+فرع طرطوس
+R5(configure)#interface fa0/0
+R5(configure)#no shutdown
+R5(configure)#exit
+R5(Sub interface) #interface fa0/0.21
+R5(Sub interface) #encapsulation dot1 q21
+R5(Sub interface) #ip address 10.11.10.130 255.255.255.224
+R5(Sub interface) #exit
+R5(configure terminal) #interface fa0/0.22
+R5(Sub interface) #encapsulation dot1 q22
+R5(Sub interface) #ip address 10.11.10.170 255.255.255.224
+R5(Sub interface) #exit
+R5 (configure terminal) #interface fa0/0.23
+R5(Sub interface) #encapsulation dot1 q23
+R5(Sub interface) #ip address 10.11.10.200 255.255.255.224
+R5(Sub interface) #exit
+R5(configure)#ctrl+z
+R5#wr
+يجب أن نعطي Ip address  للحواسيب في كل قسم من فرع طرطوس.
+Vlan21: giga0:10.11.10.130
+Vlan22: giga0:10.11.10.170
+Vlan23: giga0:10.11.10.200
+فرع دمشق تفعيل الinter vlan
+R1(configure)#intrface se0/0
+R (configure terminal) #ip address 10.12.10.1 255.255.255.224
+R1 (configure terminal) #clock rate 6400
+R1 (configure terminal) #no shutdown
+R1 (configure terminal) #exit
+ننتقل الى ال interface الاخر
+R1(configure)#interface se0/1
+R1(configure terminal) #ip address 10.10.10.33 255.255.255.224
+R1(configure terminal) # clock rate 6400
+R1 (configure terminal) #no shutdown
+R1 (configure terminal) #exit
+ننتقل إلى ال interface الاخر
+
+R1(configure)#interface se0/2
+R1(configure terminal) #ip address 10.10.10.65 255.255.255.224
+R1(configure terminal) # clock rate 6400
+R1 (configure terminal) #no shutdown
+R1 (configure terminal) #exit
+ننتقل إلى ال interface الاخر
+R1(configure)#interface se0/3
+R1(configure terminal) #ip address 10.10.10.97 255.255.255.224
+R1(configure terminal) # clock rate 6400
+R1 (configure terminal) #no shutdown
+R1 (configure terminal) #exit
+فرع حمص
+R2(configure)#interface se0/0
+R2(configure terminal) #ip address 10.12.10.2 255.255.255.224
+R2(configure terminal) #no shutdown
+R2(configure terminal) #exit
+فرع حلب
+R3(configure)#nterface se0/0
+R3(configure terminal) #ip address 10.12.10.34 255.255.255.224
+R3(configure terminal) #no shutdown
+R3(configure terminal) #exit
+فرع حماة
+R4(configure)#interface se0/0
+R4(configure terminal) #ip address 10.12.10.66 255.255.255.224
+R4(configure terminal) #no shutdown
+R4(configure terminal) #exit
+فرع طرطوس
+R5(configure)#interface se0/0
+R5(configure terminal) #ip address 10.12.10.98 255.255.255.224
+R5(configure terminal) #no shutdown
+R5(configure terminal) #exit
+تفعيل الrip فرع دمشق
+R1(configure)#router rip
+R1(configure router) #version2
+R1(configure router) # no auto summary
+R1(configure router) #exit
+,وبنفس خطوات على الفروع الأخرى
+تفعيل الEIGRP
+R1(configure)#router EIGRP 10
+R1(configure router) #network Ip address، wild card mask.
+تفعيل بروتوكول الppp
+R1(config)#interface se0/0
+R1(configure terminal) #encapculation ppp
+R1(config)#interface se0/1
+R1(configure terminal) #encapculation ppp
+R1(config)#interface se0/2
+R1(configure terminal) #encapculation ppp
+R1(config)#interface se0/3
+R1(configure terminal) #encapculation ppp
+R2(config)#interface se0/0
+R2(configure terminal) #encapculation ppp
+R3(config)#interface se0/0
+R3(configure terminal) #encapculation ppp
+R4(config)#interface se0/0
+R3(configure terminal) #encapculation ppp
+تفعيل بروتوكول الdhcp
+R(config-dhcp) #ip excluded-address10.10.10.10
+R(config-dhcp) #ip excluded-address10.10.10.40 
+R(config-dhcp) #ip excluded-address10.10.10.70
+R(config-dhcp) #ip excluded-address10.10.10.29
+R(config-dhcp) #ip excluded-address10.10.10.1.
+2-نقوم ببناء pool لكل Vlan
+R1(config-pool) #ip dhcp pool a
+هنا أنشأنا pool وأطلقنا عليها اسم a.
+R1(config-pool) #network 10.10.10.0 255.255.255.224
+R1(config-pool) #default-router 10.10.10.10
+R1(config-pool) # DNS SERVER 8.8.8.8
+R2(config-pool) #ip dhcp pool b
+هنا أنشأنا pool وأطلقنا عليها اسم b.
+R2(config-pool) #network 10.10.10.0 255.255.255.224
+R2(config-pool) #default-router 10.10.10.40
+R2(config-pool) # DNS SERVER 8.8.8.8
+R3(config-pool) #ip dhcp pool c
+هنا أنشأنا pool وأطلقنا عليها اسم a.
+R3(config-pool) #network 10.10.10.0 255.255.255.224
+R3(config-pool) #default-router 10.10.10.70
+R3(config-pool) # DNS SERVER 8.8.8.8
+هنا قمنا بإعطاء عناوين dynamic للأجهزة، ولكن عناوين الطابعة والخادم سوف نضعهم بشكل static 
+ 
+تفعيل الnat
+R (config) #interface fa0/0
+R (configure terminal) #Ip NAT inside
+R (configure terminal) # exit
+R (config) #interface se0/0
+R (configure terminal) # Ip NAT outside
+R (configure terminal) # exit
+R (config) #interface se0/1
+R (configure terminal) # Ip NAT outside
+R (configure terminal) # exit
+R (config) #interface se0/2
+R (configure terminal) # Ip NAT outside
+R (configure terminal) # exit
+R (config) #interface se0/3
+R (configure terminal) # Ip NAT outside
+R (configure terminal) # exit
+R (configure terminal) #ip Nat inside source static 10.10.10.29 200.200.200.20
+تأمين كل المنافذ 
+R1(config) #line consol 0
+
+R1(config) #Password cisco
+	R1(config) #login
+R1(config) #exit
+R1(config) # line vty 0   10
+R1(config) # Password cisco
+	R1(config) #login
+R1(config) #exit
+R1(config) # line vty 0    10
+R1(config) #Password cisco
+R1(config) #login
+R1(config) #exit
+R1(config) # enable secret 123450
+تفعيل الssh
+R (config) #line vty 0   10
+R (config) #login local
+R(config) #exit
+R(config) #transport input ssh
+R(config) #exit
+-	وضع اسم للمستخدم وكلمة المرور: R(config) #username ssh password ss1 
+إعدادات الssh
+R () #hostname R1
+2-	إنشاء ال Domain
+R1() # IP DOMAIN-name ssh4
+                                        
+3-	تعريف مفتاح التشفير
+R1() # crypto key generate rsa [512-1024]
+تفعيل الport security
+S(config) # interface 0/1
+S(config) # switchport mode access
+S(config) # switchport port security
+S(config) # switchport port mac sticky
+S(config) # switchport port violation shutdown
+S(config) #exit
+تفعيل الmotd
+R () #banner motd"        "
+R () #exit
+تفعيل الntp
+R () #ntp server s Ip of server 10.10.10.29
+القيام بالbackup
+R1# copy startup -config. TFtp
+Add [ ]? 10.10.10.29
+Add [ ] ? R1-2024/2/25
+ROUTR #copy TFtp. startup -config host [ ]?10.10.10.29 add []? R1 2024/2/25[ ]?
+يوجد طريقة أخرى
+R# COPY STARTUP -CONFIG RUNNINH 
+CONFIG
+
+
+
